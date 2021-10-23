@@ -1,4 +1,4 @@
-const express = require('express');
+const express   = require('express');
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use('/api/operations', require('./routes/operations'));
 
-const SERVER_PORT = process.env.PORT || 3000;
+const SERVER_PORT = process.env.PORT || 3030;
 
 const server = app.listen(SERVER_PORT, () => {
     const host = server.address().address;
