@@ -11,4 +11,28 @@ const pool = mysql.createPool({
     connectionLimit: 10
 });
 
+pool.p_execute = (statement, values) => {
+    return new Promise((resolve, reject) => {
+        pool.execute(statement, values, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        })
+    })
+}
+
+pool.p_query = (statement, values) => {
+    return new Promise((resolve, reject) => {
+        pool.query(statement, values, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        })
+    })
+}
+
 module.exports = pool;
