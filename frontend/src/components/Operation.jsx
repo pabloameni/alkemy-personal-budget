@@ -20,6 +20,9 @@ const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
         },
     };
 
+    const handleUpdate = op => op => onUpdate && onUpdate(op);
+    const handleDelete = op => op => onDelete && onDelete(op);
+
     return (
         <div style={styles.container}>
             <div style={styles.row}>
@@ -33,10 +36,8 @@ const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
                     { OpData['type'] }
                 </div>
                 <div>
-                <FaEdit onClick={() => console.log("Hola")} />
-                </div>
-                <div>
-                    <FaTrash onClick={() => console.log("Hola")} />
+                    <span style={styles.buttons}><FaEdit  onClick={handleUpdate(OpData)} /></span>
+                    <span style={styles.buttons}><FaTrash onClick={handleDelete(OpData)} /></span>
                 </div>
             </div>
             <p>
