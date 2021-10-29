@@ -5,8 +5,8 @@ const ListOperation = ({listOp, onUpdate, onDelete}) => {
     return (
         <div>
           {
-            listOp.map(op => {
-              return <Operation OpData={op} onUpdate={onUpdate} onDelete={onDelete} />
+            listOp && listOp.map((op, idx) => {
+              return <Operation key={idx.toString()} OpData={op} onUpdate={onUpdate} onDelete={onDelete} />
             })
           }
         </div>
