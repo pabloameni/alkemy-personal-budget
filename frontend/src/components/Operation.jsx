@@ -5,35 +5,43 @@ const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
 
     const styles = {
         container: {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            padding: "10px",
             margin: "5px",
             backgroundColor: `${borderColor}`,
-        }
+            padding: "10px",
+        },
+        row: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+        },
+        buttons: {
+            padding: "0 15px",
+            cursor: "pointer",
+        },
     };
 
     return (
         <div style={styles.container}>
-            <div>
-                { OpData['date'] }
-            </div>
-            <div>
-                { OpData['concept'] }
-            </div>
-            <div>
-                ${ OpData['amount'] }
-            </div>
-            <div>
-                { OpData['type'] }
-            </div>
-            <div>
+            <div style={styles.row}>
+                <div>
+                    { OpData['date'] }
+                </div>
+                <div>
+                    ${ OpData['amount'] }
+                </div>
+                <div>
+                    { OpData['type'] }
+                </div>
+                <div>
                 <FaEdit onClick={() => console.log("Hola")} />
+                </div>
+                <div>
+                    <FaTrash onClick={() => console.log("Hola")} />
+                </div>
             </div>
-            <div>
-                <FaTrash onClick={() => console.log("Hola")} />
-            </div>
+            <p>
+                { OpData['concept'] }
+            </p>
         </div>
     );
 }
