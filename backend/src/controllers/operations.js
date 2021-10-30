@@ -1,4 +1,5 @@
 const dbPool = require('../databases/db');
+const dateUtils = require('../utils/date');
 
 const error_handler = (err, res) => {
     console.log(err);
@@ -23,13 +24,13 @@ module.exports = {
         }
 
         dbPool.p_query(stm, values)
-            .then(results => res.json(results))
+            .then(results => res.json(dateUtils.convertListDB(results)))
             .catch(err => error_handler(err, res));
     },
 
     //POST '/api/operations'
     newOp: (req, res, next) => {
-        const { concept, amount, date, type } = req.body;
+        const { concept, amount, date, type } = dateUtils.convertDB(req.body);
         const stm = 'INSERT INTO operations(concept, amount, date, type) VALUES (?,?,?,?)';
 
         dbPool.p_execute(stm, [concept, amount, date, type])
@@ -50,15 +51,15 @@ module.exports = {
         id = req.params.id;
 
         const stm = 'SELECT * FROM operations WHERE id = ?';
-        dbPool.p_query(stm)
-            .then(results => res.json(results))
+        dbPool.p_query(stm, [id])
+            .then(results => res.json(dateUtils.convertListDB(results)))
             .catch(err => error_handler(err, res));
     },
 
     //PUT '/api/operations/:id'
     updateOp: (req, res, next) => {
         const id = req.params.id;
-        const { concept, amount, date } = req.body;
+        const { concept, amount, date } = dateUtils.convertDB(req.body);
 
         const stm = 'UPDATE operations SET concept=?, amount=?, date=? WHERE id=?';
         dbPool.p_execute(stm, [concept, amount, date, id])
