@@ -7,6 +7,7 @@ const styles = {
         maxWidth: "400px",
         border: "3px solid lightgray",
         padding: "15px",
+        margin: "10px auto",
     },
     col: {
         display: "flex",
@@ -31,7 +32,7 @@ const styles = {
 
 const Balance = ({totalIncomes = 0, totalOutcomes = 0}) => {
     return (
-        <main style={{...styles.col, ...styles.main}}>
+        <section style={{...styles.col, ...styles.main}}>
                 <h2 style={styles.title}>Balance</h2>
                 <div style={styles.row}>
                     <span>Total Incomes:</span>
@@ -46,7 +47,7 @@ const Balance = ({totalIncomes = 0, totalOutcomes = 0}) => {
                     <span style={styles.balance}>Balance:</span>
                     <span style={styles.balance}>${ totalIncomes - totalOutcomes }</span>
                 </div>
-        </main>
+        </section>
     );
 }
 
