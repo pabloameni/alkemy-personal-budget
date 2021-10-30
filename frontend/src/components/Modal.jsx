@@ -18,7 +18,7 @@ const Modal = ({isOpen, title, children, onAccept, onCancel}) => {
             margin: "0 auto",
         },
         title: {
-            padding: "15px",
+            padding: "30px 15px 15px",
         },
         footer: {
             margin: "0 auto",
