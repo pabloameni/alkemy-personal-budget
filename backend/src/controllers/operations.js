@@ -61,7 +61,7 @@ module.exports = {
         const { concept, amount, date } = req.body;
 
         const stm = 'UPDATE operations SET concept=?, amount=?, date=? WHERE id=?';
-        dbPool.p_execute(stm, [concept, amount, date])
+        dbPool.p_execute(stm, [concept, amount, date, id])
             .then(results => res.json({ message: "Operation updated" }))
             .catch(err => error_handler(err, res));
     },
