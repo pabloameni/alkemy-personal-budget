@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+
+import DialogConfirm from './DialogConfirm';
+import DialogUpdate  from './DialogUpdate';
 
 const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
     const borderColor = OpData["type"] === "I" ? "rgba(0, 255,0,.3)" : "rgba(255,0,0,.3)";
@@ -20,8 +24,39 @@ const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
         },
     };
 
-    const handleUpdate = op => op => onUpdate && onUpdate(op);
-    const handleDelete = op => op => onDelete && onDelete(op);
+    const [ isConfirmOpen, setIsConfirmOpen ] = useState(false);
+    const [ isUpdateOpen, setIsUpdateOpen ] = useState(false);
+    const [ opSelected, setOpSelected ] = useState(null);
+
+    const handleUpdate = opData => {
+        setOpSelected(opData);
+        setIsUpdateOpen(true);
+    };
+
+    const handleDelete = opData => {
+        setOpSelected(opData);
+        setIsConfirmOpen(true);
+    };
+
+    const doUpdate = (opData) => {
+        setIsUpdateOpen(false);
+        onUpdate(opData);
+    }
+
+    const doDelete = () => {
+        setIsConfirmOpen(false);
+        onDelete(opSelected)
+    }
+
+    const cancelConfirmOp = () => {
+        setIsConfirmOpen(false);
+        setOpSelected(null);
+    }
+
+    const cancelUpdateOp = () => {
+        setIsUpdateOpen(false);
+        setOpSelected(null);
+    }
 
     return (
         <div style={styles.container}>
@@ -36,13 +71,26 @@ const Operation = ({ OpData = {}, onUpdate, onDelete }) => {
                     { OpData['type'] }
                 </div>
                 <div>
-                    <span style={styles.buttons}><FaEdit  onClick={handleUpdate(OpData)} /></span>
-                    <span style={styles.buttons}><FaTrash onClick={handleDelete(OpData)} /></span>
+                    <span style={styles.buttons}><FaEdit  onClick={() => handleUpdate(OpData)} /></span>
+                    <span style={styles.buttons}><FaTrash onClick={() => handleDelete(OpData)} /></span>
                 </div>
             </div>
             <p>
                 { OpData['concept'] }
             </p>
+        <DialogConfirm
+            isOpen={isConfirmOpen}
+            bodyText="Delete the selected concept?"
+            onCancel={cancelConfirmOp}
+            onAccept={doDelete}
+        />
+        <DialogUpdate
+            isOpen={isUpdateOpen}
+            bodyText="Update selected concept?"
+            onCancel={cancelUpdateOp}
+            onAccept={doUpdate}
+            opData={opSelected}
+        />
         </div>
     );
 }
