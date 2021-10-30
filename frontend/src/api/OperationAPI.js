@@ -12,7 +12,7 @@ const api = {
             throw new Error(`Invalid Operation object`);
         }
 
-        return API.post("/operations", op);
+        return API.post("/operations", JSON.stringify(op));
     },
     deleteAll: () => {
         return API.delete("/operations");
@@ -29,7 +29,7 @@ const api = {
             throw new Error(`Invalid Operation object`);
         }
 
-        return API.put("/operations/" + op.id, op);
+        return API.put("/operations/" + op.id, JSON.stringify(op));
     },
     deleteOp: (id) => {
         if (isNaN(id)) {
