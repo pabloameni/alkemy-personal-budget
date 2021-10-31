@@ -1,7 +1,10 @@
 const express   = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const app = express();
+
+dotenv.config();
 
 // middleware
 app.use(cors());
@@ -11,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use('/api/operations', require('./routes/operations'));
 
-const SERVER_PORT = process.env.PORT || 3030;
+const SERVER_PORT = process.env.NODE_PORT || 3030;
 
 const server = app.listen(SERVER_PORT, () => {
     const host = server.address().address;
