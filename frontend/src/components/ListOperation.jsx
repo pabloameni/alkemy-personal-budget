@@ -20,10 +20,6 @@ const ListOperation = ({listOp, onCreate, onUpdate, onDelete}) => {
     onCreate(op);
   }
 
-  if (!listOp || !listOp.length) {
-    return null;
-  }
-
   let showingList = [];
   switch(listMode) {
     case 'I':
@@ -45,8 +41,7 @@ const ListOperation = ({listOp, onCreate, onUpdate, onDelete}) => {
           <button onClick={() => setListMode('I')}>All Incomes</button>
           <button onClick={() => setListMode('O')}>All Outcomes</button>
         </div>
-        {
-          
+        {         
           showingList.map((op, idx) => {
             return <Operation key={idx.toString()}  OpData={op} onUpdate={onUpdate} onDelete={onDelete} />
           })
